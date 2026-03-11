@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy"
+    content="script-src 'nonce-aem' 'strict-dynamic' 'unsafe-inline' http: https:; base-uri 'self'; object-src 'none';"
+    move-to-http-header="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Nav</title>
+  <script nonce="aem" src="/scripts/aem.js" type="module"></script>
+  <script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+  <link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+
+  <!-- Section 1 (nav-brand): download CTA icon + link, then scrolled title -->
+  <div>
+    <picture>
+      <img src="/media/header-main-icon.png" alt="" width="20" height="20" loading="eager" />
+    </picture>
+    <p><a href="#resources">Download the full LGR5 story</a></p>
+    <p>IS <strong>LGR5</strong> CANCER'S WILD CARD?</p>
+  </div>
+
+  <!-- Section 2 (nav-sections): centre nav links -->
+  <div>
+    <ul>
+      <li><a href="/drafts/">Home</a></li>
+      <li><a href="/drafts/#battle">Wild Card Story</a></li>
+      <li><a href="/drafts/#resources">Resources</a></li>
+    </ul>
+  </div>
+
+  <!-- Section 3 (nav-tools): register CTA -->
+  <div>
+    <picture>
+      <img src="/media/header-secondary-icon.png" alt="" width="20" height="20" loading="eager" />
+    </picture>
+    <p><a href="#register">Register to stay informed</a></p>
+  </div>
+
+</main>
+<footer></footer>
+</body>
+</html>
