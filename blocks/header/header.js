@@ -1,7 +1,13 @@
+import { getMetadata } from '../../scripts/aem.js';
+import { loadFragment } from '../fragment/fragment.js';
+
 /**
  * Loads and decorates the sticky site header.
  *
- * Nav content is built directly (no CMS fragment required).
+ * Nav fragment structure (3 sections):
+ *   Section 1 (nav-brand):    picture + download link + scrolled-title paragraph
+ *   Section 2 (nav-sections): ul of nav links
+ *   Section 3 (nav-tools):    picture + register link
  *
  * Scroll behaviour: adds .scrolled to .nav-wrapper when page scrollY > 80px,
  * which hides the CTA button and reveals the site-title text.
@@ -9,90 +15,69 @@
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  block.textContent = '';
+  const navMeta = getMetadata('nav');
+  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+  const fragment = await loadFragment(navPath);
 
+  if (!fragment) return;
+
+  block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
+  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+
+  ['brand', 'sections', 'tools'].forEach((cls, i) => {
+    if (nav.children[i]) nav.children[i].classList.add(`nav-${cls}`);
+  });
 
   // ── Brand: CTA pill (initial) + title text (scrolled) ────────────────────
-  const navBrand = document.createElement('div');
-  navBrand.className = 'nav-brand';
+  const navBrand = nav.querySelector('.nav-brand');
+  if (navBrand) {
+    const icon = navBrand.querySelector('picture');
+    const ctaLink = navBrand.querySelector('a');
+    const titlePara = [...navBrand.querySelectorAll('p')].find((p) => !p.querySelector('a'));
 
-  const ctaBtn = document.createElement('a');
-  ctaBtn.className = 'nav-cta-btn';
-  ctaBtn.href = '#resources';
+    const ctaBtn = document.createElement('a');
+    ctaBtn.className = 'nav-cta-btn';
+    ctaBtn.href = ctaLink?.href || '#';
+    if (icon) ctaBtn.append(icon);
+    const label = document.createElement('span');
+    label.textContent = (ctaLink?.textContent.trim() || 'Download the full LGR5 story').toUpperCase();
+    ctaBtn.append(label);
 
-  const ctaIcon = document.createElement('img');
-  ctaIcon.src = '/media/header-main-icon.png';
-  ctaIcon.alt = '';
-  ctaIcon.width = 16;
-  ctaIcon.height = 16;
-  ctaBtn.append(ctaIcon);
+    const title = document.createElement('span');
+    title.className = 'nav-title';
+    if (titlePara) title.innerHTML = titlePara.innerHTML;
 
-  const ctaLabel = document.createElement('span');
-  ctaLabel.textContent = 'DOWNLOAD THE FULL LGR5 STORY';
-  ctaBtn.append(ctaLabel);
+    navBrand.replaceChildren(ctaBtn, title);
+  }
 
-  const title = document.createElement('span');
-  title.className = 'nav-title';
-  title.innerHTML = 'IS <strong>LGR5</strong> CANCER\'S WILD CARD?';
-
-  navBrand.append(ctaBtn, title);
-
-  // ── Sections: centre nav links with › separator ───────────────────────────
-  const navSections = document.createElement('div');
-  navSections.className = 'nav-sections';
-
-  const ul = document.createElement('ul');
-  const links = [
-    { label: 'Home', href: '/' },
-    { label: 'Wild Card Story', href: '/#battle' },
-    { label: 'Resources', href: '/#resources' },
-  ];
-
-  links.forEach((item, i) => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = item.href;
-    a.textContent = item.label;
-    li.append(a);
-    ul.append(li);
-
-    if (i === 0) {
+  // ── Sections: insert › separator after first item ────────────────────────
+  const navSections = nav.querySelector('.nav-sections');
+  if (navSections) {
+    const ul = navSections.querySelector('ul');
+    const items = ul ? [...ul.children] : [];
+    if (items.length > 1) {
       const sep = document.createElement('li');
       sep.className = 'nav-separator';
       sep.setAttribute('aria-hidden', 'true');
       sep.textContent = '›';
-      ul.append(sep);
+      items[0].after(sep);
     }
-  });
+  }
 
-  navSections.append(ul);
-
-  // ── Tools: register CTA ───────────────────────────────────────────────────
-  const navTools = document.createElement('div');
-  navTools.className = 'nav-tools';
-
-  const registerBtn = document.createElement('a');
-  registerBtn.className = 'nav-register-btn';
-  registerBtn.href = '#register';
-
-  const registerIcon = document.createElement('img');
-  registerIcon.src = '/media/header-secondary-icon.png';
-  registerIcon.alt = '';
-  registerIcon.width = 14;
-  registerIcon.height = 14;
-  registerBtn.append(registerIcon);
-
-  const registerLabel = document.createElement('span');
-  registerLabel.textContent = 'Register to stay informed';
-  registerBtn.append(registerLabel);
-
-  navTools.append(registerBtn);
+  // ── Tools: wrap register link with its icon ───────────────────────────────
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    const icon = navTools.querySelector('picture');
+    const link = navTools.querySelector('a');
+    if (link) {
+      link.classList.add('nav-register-btn');
+      if (icon) link.prepend(icon);
+    }
+  }
 
   // ── Assemble & scroll behaviour ───────────────────────────────────────────
-  nav.append(navBrand, navSections, navTools);
-
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
