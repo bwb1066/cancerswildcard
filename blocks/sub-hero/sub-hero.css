@@ -1,0 +1,126 @@
+/* ── Sub Hero block ─────────────────────────────────────────────────────── */
+
+main .section.sub-hero-container {
+  margin: 0;
+  background-color: #ebebef;
+}
+
+.sub-hero-container .sub-hero-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.sub-hero {
+  background-color: #000;
+  background-position: center -250px;
+  background-repeat: no-repeat;
+  background-size: 2000px;
+  color: #fff;
+  height: 270px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+/* Upward curve at the bottom — reveals the section below */
+.sub-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -10%;
+  width: 120%;
+  height: 70px;
+  background-color: #ebebef;
+  border-radius: 50% 50% 0 0;
+  z-index: 1;
+}
+
+/* ── Inner row ──────────────────────────────────────────────────────────── */
+
+.sub-hero .sub-hero-row {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  padding: 0 20px;
+}
+
+.sub-hero .sub-hero-placeholder,
+.sub-hero .sub-hero-content {
+  flex: 1;
+}
+
+.sub-hero .sub-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Feature CTA button ─────────────────────────────────────────────────── */
+
+.sub-hero .sub-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  height: 44px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--brand-red);
+  border: none;
+  border-radius: 22px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sub-hero .sub-hero-btn:hover,
+.sub-hero .sub-hero-btn:focus-visible {
+  background-color: #a50e25;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sub-hero .sub-hero-btn picture {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sub-hero .sub-hero-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* ── Supporting text ────────────────────────────────────────────────────── */
+
+.sub-hero .sub-hero-supporting {
+  margin-top: 10px;
+}
+
+.sub-hero .sub-hero-supporting p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgb(255 255 255 / 80%);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (width <= 600px) {
+  .sub-hero {
+    background-position: -200px -50px;
+    background-size: 700px;
+    padding-top: 25px;
+    height: 235px;
+  }
+
+  .sub-hero.sub-hero-left {
+    background-position: right -180px top -50px;
+  }
+}

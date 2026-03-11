@@ -1,0 +1,99 @@
+/* ── Image Toggle block ─────────────────────────────────────────────────── */
+
+.image-toggle {
+  margin: 20px 0;
+}
+
+/* ── Control row ────────────────────────────────────────────────────────── */
+
+.image-toggle .image-toggle-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.image-toggle .image-toggle-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ── Sliding switch ─────────────────────────────────────────────────────── */
+
+.image-toggle .image-toggle-switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  background-color: #2d3d6b; /* navy — state A */
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background-color 0.3s;
+}
+
+.image-toggle .image-toggle-switch[aria-checked="true"] {
+  background-color: var(--brand-red); /* red — state B */
+}
+
+.image-toggle .image-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: transform 0.3s;
+  pointer-events: none;
+}
+
+.image-toggle .image-toggle-switch[aria-checked="true"] .image-toggle-thumb {
+  transform: translateX(24px); /* 52 - 22 - 2*3 = 24 */
+}
+
+/* ── Viewer — stacked frames with crossfade ─────────────────────────────── */
+
+.image-toggle .image-toggle-viewer {
+  display: grid;
+}
+
+.image-toggle .image-toggle-frame {
+  grid-column: 1;
+  grid-row: 1;
+  opacity: 0.3;
+  transition: opacity 0.4s;
+}
+
+.image-toggle .image-toggle-frame.active {
+  opacity: 1;
+}
+
+.image-toggle .image-toggle-frame picture,
+.image-toggle .image-toggle-frame img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+/* Hide mobile images on desktop, desktop images on mobile */
+.image-toggle .image-toggle-frame .image-toggle-mobile {
+  display: none; /* specificity (0,3,0) beats lazy-styles (0,2,1) */
+}
+
+@media (width <= 600px) {
+  .image-toggle .image-toggle-frame > picture:not(.image-toggle-mobile),
+  .image-toggle .image-toggle-frame > img:not(.image-toggle-mobile) {
+    display: none;
+  }
+
+  .image-toggle .image-toggle-frame .image-toggle-mobile {
+    display: block;
+  }
+}

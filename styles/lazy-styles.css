@@ -1,1 +1,101 @@
 /* add global styles that can be loaded post LCP here */
+
+/* ── Section background variants ───────────────────────────────────────── */
+
+main .section.cream,
+main .section.grey {
+  padding: 48px 0;
+  margin: 0;
+}
+
+main .section.cream {
+  background-color: var(--site-bg);
+}
+
+main .section.grey {
+  background-color: #ebebef;
+}
+
+/* ── Section typography (shared by cream + grey) ────────────────────────── */
+
+main .section.cream h4,
+main .section.grey h4 {
+  margin: 0 0 0.15em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--brand-red);
+  text-transform: none;
+}
+
+main .section.cream h2,
+main .section.grey h2 {
+  margin: 0 0 0.6em;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-color);
+  line-height: 1.1;
+}
+
+main .section.cream h3,
+main .section.grey h3 {
+  margin: 1em 0 0.4em;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--brand-red);
+  line-height: 1.2;
+}
+
+main .section.cream p,
+main .section.grey p {
+  max-width: 640px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  line-height: 1.7;
+}
+
+main .section.cream .lead p,
+main .section.grey .lead p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+main .section.cream > div,
+main .section.grey > div {
+  max-width: 740px;
+  padding: 0 24px;
+}
+
+main .section.cream picture,
+main .section.grey picture,
+main .section.cream img,
+main .section.grey img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+main .section.cream .supporting p,
+main .section.grey .supporting p {
+  font-size: 0.75rem;
+  opacity: 0.65;
+  font-style: italic;
+  max-width: 640px;
+  margin-top: 0;
+}
+
+main .section.cream ul,
+main .section.grey ul {
+  padding-left: 1.4em;
+  margin: 0.6em 0;
+}
+
+main .section.cream li,
+main .section.grey li {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-color);
+  margin-bottom: 0.3em;
+}

@@ -1,0 +1,52 @@
+/* ── Battle Icons block ─────────────────────────────────────────────────── */
+
+/* ── Separator strips ───────────────────────────────────────────────────── */
+
+.battle-icons .battle-icons-separator {
+  line-height: 0;
+}
+
+.battle-icons .battle-icons-separator picture {
+  display: block;
+}
+
+.battle-icons .battle-icons-separator img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── Icon grid ──────────────────────────────────────────────────────────── */
+
+.battle-icons .battle-icons-grid {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 28px 0;
+}
+
+.battle-icons .battle-icons-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.battle-icons .battle-icons-item picture {
+  display: block;
+}
+
+.battle-icons .battle-icons-item picture img {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.battle-icons .battle-icons-item p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--brand-red);
+}

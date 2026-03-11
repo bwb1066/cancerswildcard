@@ -37,7 +37,15 @@
   --heading-font-size-xs: 22px;
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 44px;
+
+  /* brand */
+  --border-radius: 8px;
+  --brand-red: #c8102e;
+  --red-rgb: 212, 20, 50;
+  --red-dark-rgb: 178, 14, 38;
+  --brand-dark: #0d0606;
+  --site-bg: #f5ece0;
 }
 
 /* fallback fonts */
@@ -296,6 +304,10 @@ main img {
 }
 
 /* sections */
+main {
+  background-color: #ebebef;
+}
+
 main > .section {
   margin: 40px 0;
 }
